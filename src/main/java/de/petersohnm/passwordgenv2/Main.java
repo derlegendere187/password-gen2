@@ -30,22 +30,22 @@ public class Main {
         for (String arg : args) {
             String helptext =
                     """
-                            <> - necessary
-                            [] - optional
-                            
-                            usage: Main.java <-l <int>>
-                                             [-s <boolean>]
-                                             [-u <boolean>]
-                                             [-n <boolean>]
-                            
-                            explanation: '-l'   Sets the length of the password.
-                                         '-s'   If true, special characters will be used in the password.
-                                         '-u'   If true, uppercase letters will be used in the password.
-                                         '-n'   If true, numbers will be used in the password.
-                            
-                            '--help' or '-h' to see helpful information.
+                        <> - necessary
+                        [] - optional
+                        
+                        usage: Main.java <-l <int>>
+                                         [-s <boolean>]
+                                         [-u <boolean>]
+                                         [-n <boolean>]
+                        
+                        explanation: '-l'   Sets the length of the password.
+                                     '-s'   If true, special characters will be used in the password.
+                                     '-u'   If true, uppercase letters will be used in the password.
+                                     '-n'   If true, numbers will be used in the password.
+                        
+                        '--help' or '-h' to see helpful information.
                     """;
-            if (arg.equals("--help") || arg.equals("-h")) {
+            if (arg.equals("--help") || arg.equals("-h") ) {
                 System.out.println(helptext);
                 break;
             } else {
@@ -54,3 +54,7 @@ public class Main {
         }
     }
 }
+
+// TODO: complete help -?, nothing, /?, ?
+// TODO: default no command found -> help
+// TODO: boolean umdrehen, wenn gesetzt wurde
