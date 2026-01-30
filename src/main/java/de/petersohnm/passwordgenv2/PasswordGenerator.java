@@ -1,7 +1,6 @@
 package de.petersohnm.passwordgenv2;
 
 import java.security.SecureRandom;
-import java.util.Random;
 
 /**
  * In this class is the method defined to generate the password.
@@ -22,9 +21,8 @@ public class PasswordGenerator {
     public static String generatePassword(int pwlength, boolean specialcharacters, boolean uppercaseAllowed, boolean numbersAllowed) {
         final String LOWER = "abcdefghijklmnopqrstuvwxyz";
         final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        final String NUMBERS = "0123456789";
-        final String SPECIAL = "!@#$%&*+-_?";
-        String password = "";
+        final String NUMBERS = "01234567890123456789";
+        final String SPECIAL = "!@#$%&*+-_?!@#$%&*+-_?";
 
 
         // StringBuilder ist, besonders für lange Strings, sehr effizient und ressourcenschonend
@@ -37,15 +35,14 @@ public class PasswordGenerator {
         // Hier werden die acceptedValues zu einem String zusammengeführt.
         String finalValues = acceptedValues.toString();
 
-        // Baut das Passwort nach und nach weiter aus, indem es random Zahlen generiert
-        // Diese Zahlen nehmen dann die passenden Werte aus dem finalValues-String heraus
+        // Baut das Passwort nach und nach weiter aus, indem es random Zahlen generiert.
+        // Diese Zahlen nehmen dann die passenden Werte aus dem finalValues-String heraus.
         // Diese Werte werden dann zu result appended, was dazu führt, dass ein String aus random Values generiert wird.
-        StringBuilder result = new StringBuilder();
+        StringBuilder password = new StringBuilder();
         for (int i = 0; i < pwlength; i++) {
             int randomChar = GENERATOR.nextInt(finalValues.length());
-            result.append(finalValues.charAt(randomChar));
+            password.append(finalValues.charAt(randomChar));
         }
-
-        return result.toString();
+        return password.toString();
     }
 }

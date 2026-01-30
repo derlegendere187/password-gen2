@@ -33,16 +33,16 @@ public class Main {
                 numbersAllowed = false;
             }
         }
-        System.out.println("---DEBUG AREA---");
+        System.out.println("---INFORMATION---");
         System.out.println("length: " + pwlength);
-        System.out.println("special chars: " + specialcharacters);
-        System.out.println("uppercases: " + uppercaseAllowed);
-        System.out.println("numbers: " + numbersAllowed);
+        System.out.println("special chars?: " + specialcharacters);
+        System.out.println("uppercases?: " + uppercaseAllowed);
+        System.out.println("numbers?: " + numbersAllowed);
         System.out.println("----------------");
 
         String finalPassword = PasswordGenerator.generatePassword(pwlength, specialcharacters, uppercaseAllowed, numbersAllowed);
 
-        System.out.println(finalPassword);
+        System.out.println("Your password:\n" + finalPassword);
     }
 
     /**
@@ -64,6 +64,7 @@ public class Main {
                     }
                 } catch (Exception e) {
                     System.out.println("Please enter a valid integer for the password length.");
+                    System.exit(0);
                 }
                 lengthIsNotValid = false;
             }
@@ -119,4 +120,5 @@ public class Main {
 }
 
 // TODO: no command found -> help
-//
+// TODO: eval
+// TODO: React, view, vive?
