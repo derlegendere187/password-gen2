@@ -2,8 +2,6 @@ package de.petersohnm.passwordgenv2;
 
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.random.RandomGenerator;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,11 +34,15 @@ public class Main {
             }
         }
         System.out.println("---DEBUG AREA---");
-        System.out.println("length:" + pwlength);
-        System.out.println("special chars:" + specialcharacters);
-        System.out.println("uppercases:" + uppercaseAllowed);
-        System.out.println("numbers" + numbersAllowed);
+        System.out.println("length: " + pwlength);
+        System.out.println("special chars: " + specialcharacters);
+        System.out.println("uppercases: " + uppercaseAllowed);
+        System.out.println("numbers: " + numbersAllowed);
         System.out.println("----------------");
+
+        String finalPassword = PasswordGenerator.generatePassword(pwlength, specialcharacters, uppercaseAllowed, numbersAllowed);
+
+        System.out.println(finalPassword);
     }
 
     /**
