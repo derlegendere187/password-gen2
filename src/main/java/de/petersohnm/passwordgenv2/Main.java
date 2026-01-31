@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        String[] allowedSymbols = new String[]{"-l", "-s", "-u", "-n", "--help", "-h", "?", "-?", "/?"};
+        String[] allowedSymbols = new String[]{"-l", "-s", "-u", "-n", "--help", "-h", "?", "-?", "/?", "-version", "--version", "-v"};
         int pwlength = 0;                   // -l
         boolean specialcharacters = true;   // -s
         boolean uppercaseAllowed = true;    // -u
@@ -29,6 +29,7 @@ public class Main {
         }
 
         searchHelp(args);
+        searchVersion(args);
         pwlength = lengthCheck(args);
 
         for (String arg : args) {
@@ -103,6 +104,20 @@ public class Main {
         }
     }
 
+    public static void searchVersion(String[] args) {
+        String[] versionSymbols = new String[]{"-version", "--version", "-v"};
+
+        for (String arg : args) {
+            // Prints the help menu, if no args found
+            if (Arrays.stream(versionSymbols).toList().contains(arg)) {
+                System.out.println("Current version: Password Generator 1.3.1");
+                System.exit(0);
+            } else {
+                return;
+            }
+        }
+    }
+
     /**
      * Prints the help menu.
      */
@@ -113,16 +128,19 @@ public class Main {
                     <> - necessary
                     [] - optional
                 
-                    usage: Main.java <-l <int>>         // password length
-                                     [-s]               // special characters
-                                     [-u]               // uppercases
-                                     [-n]               // numbers
+                    usage: pwgen <-l <int>>         // password length
+                                 [-s]               // special characters
+                                 [-u]               // uppercases
+                                 [-n]               // numbers
                 
                     explanation: '-l'   Sets the length of the password.
                                  '-s'   When used, special characters will NOT be implemented in the password.
                                  '-u'   When used, uppercase letters will NOT be used in the password.
                                  '-n'   When used, numbers will NOT be used in the password.
                 
+
+                    To see the version of this program, use '--version' or '-v'.
+
                     '--help' or '-h' to see helpful information.
                 """;
         System.out.println(helptext);
