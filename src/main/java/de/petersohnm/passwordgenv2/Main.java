@@ -16,6 +16,18 @@ public class Main {
             System.exit(0);
         }
 
+        for (String arg : args) {
+            // Hier wird überprüft, ob die Argumwnente gültig sind. Als gültig zählt alles, was in allowedSymbols (und eine eine Zahl für die Passwortlänge) eingetragen ist.
+            // Was genau macht aber das "\\d+"? -> Es überprüft, ob der String nur aus Ziffern besteht (also eine Zahl ist). 
+            // Würde man das '+' weglassen, würde es nur einzelne Ziffern (0-9) erkennen, aber keine mehrstelligen Zahlen (z.B. 10, 25, 100).
+            // Das ist wichtig, weil die Passwortlänge eine mehrstellige Zahl sein kann.
+            if (!Arrays.stream(allowedSymbols).toList().contains(arg) && !arg.matches("-l") && !arg.matches("\\d+")) {
+                System.out.println("Unknown argument: " + arg);
+                System.out.println("Use '--help' or '-h' to see helpful information.");
+                System.exit(0);
+            }
+        }
+
         searchHelp(args);
         pwlength = lengthCheck(args);
 
@@ -23,11 +35,9 @@ public class Main {
 
             if (arg.equals("-s")) {
                 specialcharacters = false;
-//                System.out.println(specialcharacters);
             }
             if (arg.equals("-u")) {
                 uppercaseAllowed = false;
-//                System.out.println(uppercaseAllowed);
             }
             if (arg.equals("-n")) {
                 numbersAllowed = false;
@@ -39,10 +49,14 @@ public class Main {
         System.out.println("uppercases?: " + uppercaseAllowed);
         System.out.println("numbers?: " + numbersAllowed);
         System.out.println("----------------");
-
+        System.out.print("Generating password... Please wait");
         String finalPassword = PasswordGenerator.generatePassword(pwlength, specialcharacters, uppercaseAllowed, numbersAllowed);
 
-        System.out.println("Your password:\n" + finalPassword);
+        // \033     ESC
+        //  [       startet ANSI-Befehl
+        //  K       clear line
+        System.out.print("\r\033[K"); // löscht Zeile
+        System.out.println("\rYour password:\n" + finalPassword);
     }
 
     /**
@@ -64,6 +78,7 @@ public class Main {
                     }
                 } catch (Exception e) {
                     System.out.println("Please enter a valid integer for the password length.");
+                    System.out.println("Use '--help' or '-h' to see helpful information.");
                     System.exit(0);
                 }
                 lengthIsNotValid = false;
