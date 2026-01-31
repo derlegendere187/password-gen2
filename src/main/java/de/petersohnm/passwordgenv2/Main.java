@@ -49,14 +49,9 @@ public class Main {
         System.out.println("uppercases?: " + uppercaseAllowed);
         System.out.println("numbers?: " + numbersAllowed);
         System.out.println("----------------");
-        System.out.print("Generating password... Please wait");
         String finalPassword = PasswordGenerator.generatePassword(pwlength, specialcharacters, uppercaseAllowed, numbersAllowed);
 
-        // \033     ESC
-        //  [       startet ANSI-Befehl
-        //  K       clear line
-        System.out.print("\r\033[K"); // löscht Zeile
-        System.out.println("\rYour password:\n" + finalPassword);
+        System.out.println("Your password:\n" + finalPassword);
     }
 
     /**
