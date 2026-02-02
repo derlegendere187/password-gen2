@@ -17,7 +17,7 @@ public class Main {
         }
 
         for (String arg : args) {
-            // Hier wird überprüft, ob die Argumwnente gültig sind. Als gültig zählt alles, was in allowedSymbols (und eine eine Zahl für die Passwortlänge) eingetragen ist.
+            // Hier wird überprüft, ob die Argumente gültig sind. Als gültig zählt alles, was in allowedSymbols (und eine eine Zahl für die Passwortlänge) eingetragen ist.
             // Was genau macht aber das "\\d+"? -> Es überprüft, ob der String nur aus Ziffern besteht (also eine Zahl ist). 
             // Würde man das '+' weglassen, würde es nur einzelne Ziffern (0-9) erkennen, aber keine mehrstelligen Zahlen (z.B. 10, 25, 100).
             // Das ist wichtig, weil die Passwortlänge eine mehrstellige Zahl sein kann.
