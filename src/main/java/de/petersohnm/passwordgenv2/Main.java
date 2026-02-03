@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        String[] allowedSymbols = new String[]{"-l", "-s", "-u", "-n", "--help", "-h", "?", "-?", "/?", "-version", "--version", "-v"};
+        String[] allowedSymbols = new String[]{"-l", "-s", "-u", "-n", "--help", "-help", "-h", "?", "-?", "/?", "-version", "--version", "-v"};
         int pwlength = 0;                   // -l
         boolean specialcharacters = true;   // -s
         boolean uppercaseAllowed = true;    // -u
@@ -18,7 +18,7 @@ public class Main {
 
         for (String arg : args) {
             // Hier wird überprüft, ob die Argumente gültig sind. Als gültig zählt alles, was in allowedSymbols (und eine eine Zahl für die Passwortlänge) eingetragen ist.
-            // Was genau macht aber das "\\d+"? -> Es überprüft, ob der String nur aus Ziffern besteht (also eine Zahl ist). 
+            // Was genau macht aber das "\\d+"? -> Es überprüft, ob der String nur aus Ziffern besteht (also eine Zahl ist).
             // Würde man das '+' weglassen, würde es nur einzelne Ziffern (0-9) erkennen, aber keine mehrstelligen Zahlen (z.B. 10, 25, 100).
             // Das ist wichtig, weil die Passwortlänge eine mehrstellige Zahl sein kann.
             if (!Arrays.stream(allowedSymbols).toList().contains(arg) && !arg.matches("-l") && !arg.matches("\\d+")) {
@@ -33,7 +33,6 @@ public class Main {
         pwlength = lengthCheck(args);
 
         for (String arg : args) {
-
             if (arg.equals("-s")) {
                 specialcharacters = false;
             }
@@ -91,17 +90,16 @@ public class Main {
      * @param args The arguments provided by user input.
      */
     public static void searchHelp(String[] args) {
-        String[] helpSymbols = new String[]{"--help", "-h", "?", "-?", "/?"};
+        String[] helpSymbols = new String[]{"--help", "-help", "-h", "?", "-?", "/?"};
 
         for (String arg : args) {
             // Prints the help menu, if no args found
             if (Arrays.stream(helpSymbols).toList().contains(arg) || arg.isEmpty()) {
                 printHelpMenu();
-                break;
-            } else {
-                return;
+                System.exit(0);
             }
         }
+        return;
     }
 
     public static void searchVersion(String[] args) {
@@ -110,7 +108,7 @@ public class Main {
         for (String arg : args) {
             // Prints the help menu, if no args found
             if (Arrays.stream(versionSymbols).toList().contains(arg)) {
-                System.out.println("Current version: Password Generator 1.3.1");
+                System.out.println("Current version: Password Generator 1.3.2");
                 System.exit(0);
             } else {
                 return;
