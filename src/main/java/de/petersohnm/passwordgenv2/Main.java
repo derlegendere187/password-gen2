@@ -5,14 +5,10 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        String[] allowedSymbols = new String[]{"-l", "-s", "-u", "-n", "--help", "-help", "-h", "?", "-?", "/?", "-version", "--version", "-v"};
         int pwlength = 0;                   // -l
         boolean specialcharacters = true;   // -s
         boolean uppercaseAllowed = true;    // -u
         boolean numbersAllowed = true;      // -n
-
-        System.out.println(System.getProperty("user.name"));
-        System.exit(0);
 
 
         if (args.length == 0) {
@@ -21,17 +17,13 @@ public class Main {
         }
 
         for (String arg : args) {
-            // Hier wird überprüft, ob die Argumente gültig sind. Als gültig zählt alles, was in allowedSymbols (und eine eine Zahl für die Passwortlänge) eingetragen ist.
-            // Was genau macht aber das "\\d+"? -> Es überprüft, ob der String nur aus Ziffern besteht (also eine Zahl ist).
-            // Würde man das '+' weglassen, würde es nur einzelne Ziffern (0-9) erkennen, aber keine mehrstelligen Zahlen (z.B. 10, 25, 100).
-            // Das ist wichtig, weil die Passwortlänge eine mehrstellige Zahl sein kann.
-            if (!Arrays.stream(allowedSymbols).toList().contains(arg) && !arg.matches("-l") && !arg.matches("\\d+")) {
-                System.out.println("Unknown argument: " + arg);
-                System.out.println("Use '--help' or '-h' to see helpful information.");
+            if (arg.equals("--secret")) {
+                Secret.secret();
                 System.exit(0);
             }
         }
 
+        checkInvalidCharacter(args);
         searchHelp(args);
         searchVersion(args);
         pwlength = lengthCheck(args);
@@ -90,6 +82,25 @@ public class Main {
     }
 
     /**
+     * Checks if there is a invalid input by the user.
+     * @param args The arguments provided by user input.
+     */
+    public static void checkInvalidCharacter(String[] args) {
+        String[] allowedSymbols = new String[]{"-l", "-s", "-u", "-n", "--help", "-help", "-h", "?", "-?", "/?", "-version", "--version", "-v", "--secret"};
+        for (String arg : args) {
+            // Hier wird überprüft, ob die Argumente gültig sind. Als gültig zählt alles, was in allowedSymbols (und eine eine Zahl für die Passwortlänge) eingetragen ist.
+            // Was genau macht aber das "\\d+"? -> Es überprüft, ob der String nur aus Ziffern besteht (also eine Zahl ist).
+            // Würde man das '+' weglassen, würde es nur einzelne Ziffern (0-9) erkennen, aber keine mehrstelligen Zahlen (z.B. 10, 25, 100).
+            // Das ist wichtig, weil die Passwortlänge eine mehrstellige Zahl sein kann.
+            if (!Arrays.stream(allowedSymbols).toList().contains(arg) && !arg.matches("-l") && !arg.matches("\\d+")) {
+                System.out.println("Unknown argument: " + arg);
+                System.out.println("Use '--help' or '-h' to see helpful information.");
+                System.exit(0);
+            }
+        }
+    }
+
+    /**
      * Checks if any of the help symbols are used.
      * @param args The arguments provided by user input.
      */
@@ -106,6 +117,10 @@ public class Main {
         return;
     }
 
+    /**
+     * Checks if user wants to see the version of the programm.
+     * @param args The arguments provided by user input.
+     */
     public static void searchVersion(String[] args) {
         String[] versionSymbols = new String[]{"-version", "--version", "-v"};
 
