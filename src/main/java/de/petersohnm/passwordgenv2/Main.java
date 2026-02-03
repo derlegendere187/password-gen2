@@ -11,6 +11,10 @@ public class Main {
         boolean uppercaseAllowed = true;    // -u
         boolean numbersAllowed = true;      // -n
 
+        System.out.println(System.getProperty("user.name"));
+        System.exit(0);
+
+
         if (args.length == 0) {
             printHelpMenu();
             System.exit(0);
