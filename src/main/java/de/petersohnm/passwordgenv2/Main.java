@@ -127,7 +127,7 @@ public class Main {
         for (String arg : args) {
             // Prints the help menu, if no args found
             if (Arrays.stream(versionSymbols).toList().contains(arg)) {
-                System.out.println("Current version: Password Generator 1.3.2");
+                System.out.println("Current version: Password Generator 1.3.3");
                 System.exit(0);
             } else {
                 return;
@@ -164,6 +164,4 @@ public class Main {
     }
 }
 
-// TODO: no command found -> help
-// TODO: eval
 // TODO: React, view, vive?
