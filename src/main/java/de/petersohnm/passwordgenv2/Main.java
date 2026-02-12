@@ -12,7 +12,6 @@ public class Main {
         boolean uppercaseAllowed = true;    // -u
         boolean numbersAllowed = true;      // -n
 
-
         if (args.length == 0) {
             printHelpMenu();
             System.exit(1);
@@ -47,6 +46,7 @@ public class Main {
         System.out.println("uppercases?: " + uppercaseAllowed);
         System.out.println("numbers?: " + numbersAllowed);
         System.out.println("----------------");
+
         String finalPassword = PasswordGenerator.generatePassword(pwlength, specialcharacters, uppercaseAllowed, numbersAllowed);
 
         System.out.println("Your password:\n" + finalPassword);
