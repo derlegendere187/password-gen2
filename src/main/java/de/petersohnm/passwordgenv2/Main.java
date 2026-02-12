@@ -1,7 +1,9 @@
 package de.petersohnm.passwordgenv2;
 
 
+import java.awt.*;
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -13,7 +15,7 @@ public class Main {
 
         if (args.length == 0) {
             printHelpMenu();
-            System.exit(0);
+            System.exit(1);
         }
 
         for (String arg : args) {
@@ -65,18 +67,18 @@ public class Main {
                     pwlength = Integer.parseInt(args[pos + 1]);
                     if (pwlength <= 0) {
                         System.out.println("The password length must be at least 1.");
-                        System.exit(0);
+                        System.exit(1);
                     }
                 } catch (Exception e) {
                     System.out.println("Please enter a valid integer for the password length.");
                     System.out.println("Use '--help' or '-h' to see helpful information.");
-                    System.exit(0);
+                    System.exit(1);
                 }
                 lengthIsNotValid = false;
             }
         }
         if (lengthIsNotValid) {
-            System.exit(0);
+            System.exit(1);
         }
         return pwlength;
     }
@@ -88,14 +90,13 @@ public class Main {
     public static void checkInvalidCharacter(String[] args) {
         String[] allowedSymbols = new String[]{"-l", "-s", "-u", "-n", "--help", "-help", "-h", "?", "-?", "/?", "-version", "--version", "-v", "--secret"};
         for (String arg : args) {
-            // Hier wird überprüft, ob die Argumente gültig sind. Als gültig zählt alles, was in allowedSymbols (und eine eine Zahl für die Passwortlänge) eingetragen ist.
-            // Was genau macht aber das "\\d+"? -> Es überprüft, ob der String nur aus Ziffern besteht (also eine Zahl ist).
-            // Würde man das '+' weglassen, würde es nur einzelne Ziffern (0-9) erkennen, aber keine mehrstelligen Zahlen (z.B. 10, 25, 100).
-            // Das ist wichtig, weil die Passwortlänge eine mehrstellige Zahl sein kann.
+            // Checks if the argument contains only digits.
+            // \d = one digit (0–9), + = one or more.
+            // So \d+ matches multi-digit numbers (e.g., 10, 25, 100).
             if (!Arrays.stream(allowedSymbols).toList().contains(arg) && !arg.matches("-l") && !arg.matches("\\d+")) {
                 System.out.println("Unknown argument: " + arg);
                 System.out.println("Use '--help' or '-h' to see helpful information.");
-                System.exit(0);
+                System.exit(1);
             }
         }
     }
@@ -108,13 +109,14 @@ public class Main {
         String[] helpSymbols = new String[]{"--help", "-help", "-h", "?", "-?", "/?"};
 
         for (String arg : args) {
+
+            List<String> helpSymbolsList = Arrays.stream(helpSymbols).toList();
             // Prints the help menu, if no args found
-            if (Arrays.stream(helpSymbols).toList().contains(arg) || arg.isEmpty()) {
+            if (helpSymbolsList.contains(arg) || arg.isEmpty()) {
                 printHelpMenu();
                 System.exit(0);
             }
         }
-        return;
     }
 
     /**
@@ -127,10 +129,8 @@ public class Main {
         for (String arg : args) {
             // Prints the help menu, if no args found
             if (Arrays.stream(versionSymbols).toList().contains(arg)) {
-                System.out.println("Current version: Password Generator 1.3.3");
+                System.out.println("Current version: Password Generator 1.4.0");
                 System.exit(0);
-            } else {
-                return;
             }
         }
     }

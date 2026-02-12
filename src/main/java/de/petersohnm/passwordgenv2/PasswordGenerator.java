@@ -25,19 +25,17 @@ public class PasswordGenerator {
         final String SPECIAL = "!@#$%&*+-_?!@#$%&*+-_?";
 
 
-        // StringBuilder ist, besonders für lange Strings, sehr effizient und ressourcenschonend
-        StringBuilder acceptedValues = new StringBuilder(LOWER); // lower per default immer mit dabei
+        String acceptedValues = LOWER; // 'lower' is initialized by default
 
-        if (specialcharacters) { acceptedValues.append(SPECIAL); };
-        if (uppercaseAllowed) { acceptedValues.append(UPPER); };
-        if (numbersAllowed) { acceptedValues.append(NUMBERS); };
+        if (specialcharacters) { acceptedValues += SPECIAL; }
+        if (uppercaseAllowed) { acceptedValues += UPPER; }
+        if (numbersAllowed) { acceptedValues += NUMBERS; }
 
-        // Hier werden die acceptedValues zu einem String zusammengeführt.
-        String finalValues = acceptedValues.toString();
+        String finalValues = acceptedValues;
 
-        // Baut das Passwort nach und nach weiter aus, indem es random Zahlen generiert.
-        // Diese Zahlen nehmen dann die passenden Werte aus dem finalValues-String heraus.
-        // Diese Werte werden dann zu result appended, was dazu führt, dass ein String aus random Values generiert wird.
+        // Builds the password step by step by generating random numbers.
+        // These numbers pick the corresponding characters from the finalValues string.
+        // Those characters are appended to 'password', creating a string of random values.
         StringBuilder password = new StringBuilder();
         for (int i = 0; i < pwlength; i++) {
             int randomChar = GENERATOR.nextInt(finalValues.length());
